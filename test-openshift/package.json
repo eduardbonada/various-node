@@ -1,0 +1,13 @@
+{
+  "name": "test-openshift",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongoose": "^4.4.19"
+  }
+}

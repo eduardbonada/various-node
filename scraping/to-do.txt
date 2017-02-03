@@ -1,0 +1,6 @@
+Detect country (in trip page or in index page?)
+Detect date of the trip page
+Construct info to return
+
+request real webs
+loop index pages until date is too old

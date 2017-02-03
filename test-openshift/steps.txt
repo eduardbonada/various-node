@@ -1,0 +1,60 @@
+REFS
+****
+
+http://stackoverflow.com/questions/12657168/can-i-use-my-existing-git-repo-with-openshift/12669112#12669112
+http://www.tamas.io/deploying-a-node-jssocket-io-app-to-openshift/
+
+STEPS
+*****
+
+- npm init & install express
+- git init & .gitignore
+- add scripts to package.json
+- git status & git add . & git commit -am "Init repo"
+- add index.js
+- git status & git add . & git commit -am "Add index.js"
+- [create app in openshift]
+- git remote add openshift -f ssh://YOURUSERNAME@YOURAPPNAME-YOURNAMESPACE.rhcloud.com/~/git/test.git/
+- [git merge openshift/master -s recursive -X ours]
+- [delete pushed files + new commit] ???
+- git push openshift master or git push openshift HEAD:master -f
+- [check logs in ssh]
+- remove files merged that we don't want (deplist.txt, index.html, README.md)
+- git status & git add . & git commit -am "Remove unwanted merged files"
+- git push openshift master
+- [check logs in ssh]
+- test in browser
+
+STEPS MONGOOSE
+**************
+[add Mongo cartridge in openshift]
+- install mongoose
+- add mongoose connection to index.js
+- git status & git add . & git commit -am "Connect to mongoose"
+- git push openshift master
+- [check logs in ssh]
+- test in browser
+
+
+INDEX.JS
+********
+
+var express = require('express');
+var app = express();
+var http = require('http');
+
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 3002);
+app.set('ip', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1");
+
+app.get('/', function(req, res){
+	res.send('Hello World from Openshift!');
+});
+
+http.createServer(app).listen(app.get('port') ,app.get('ip'), function () {
+    console.log("Express server listening at %s:%d ", app.get('ip'),app.get('port'));
+});
+
+
+INDEX.JS (mongoose)
+********
+???
